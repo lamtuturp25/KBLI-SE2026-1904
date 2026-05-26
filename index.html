@@ -1,143 +1,144 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Pencarian KBLI SE2026 — Bangka Tengah</title>
+<title>
+KBLI SE2026 —
+Aktivitas Ekonomi yang Sering Ditemukan di Bangka Tengah
+</title>
 
 <style>
 
 *{
 box-sizing:border-box;
-font-family:system-ui;
+font-family:
+system-ui,
+sans-serif;
 }
 
 body{
 margin:0;
-background:#f4f7fb;
+background:#f5f7fb;
+color:#222;
 }
 
 .header{
-background:linear-gradient(
+
+background:
+linear-gradient(
 135deg,
-#FF8A00,
+#F28C28,
 #2D9CDB
 );
 
 color:white;
 
-padding:32px;
+padding:
+40px
+20px;
 
 text-align:center;
+
 }
 
-.container{
-max-width:1100px;
-margin:auto;
+.header h1{
 
-padding:20px;
+margin:0;
+
+font-size:38px;
+
 }
 
-.search{
+.subtitle{
 
-width:100%;
+font-size:22px;
 
-padding:18px;
-
-font-size:18px;
-
-border-radius:16px;
-
-border:none;
-
-box-shadow:
-0 5px 18px rgba(0,0,0,.1);
-}
-
-.info{
+font-weight:700;
 
 margin-top:10px;
 
-color:#666;
 }
 
-.grid{
+.desc{
+
+margin-top:10px;
+
+opacity:.95;
+
+}
+
+.flow{
+
+margin-top:12px;
+
+font-size:14px;
+
+}
+
+.container{
+
+max-width:1200px;
+
+margin:auto;
+
+padding:25px;
+
+}
+
+.controls{
 
 display:grid;
 
 grid-template-columns:
-repeat(
-auto-fit,
-minmax(350px,1fr)
-);
-
-gap:18px;
-
-margin-top:25px;
-
-}
-
-.card{
-
-background:white;
-
-padding:20px;
-
-border-radius:16px;
-
-box-shadow:
-0 8px 20px rgba(0,0,0,.08);
-
-display:flex;
-
-flex-direction:column;
+2fr
+1fr
+auto;
 
 gap:12px;
 
-}
-
-.badge{
-
-background:#eef5ff;
-
-padding:8px;
-
-border-radius:10px;
-
-font-size:13px;
+margin-bottom:20px;
 
 }
 
-.kode{
+input,
+select{
 
-font-size:32px;
+padding:16px;
 
-font-weight:800;
+border:none;
 
-color:#ff8a00;
+border-radius:14px;
 
-}
+font-size:16px;
 
-.nama{
-
-font-weight:700;
-
-font-size:20px;
+box-shadow:
+0 4px 14px rgba(0,0,0,.08);
 
 }
 
-.btn{
-
-padding:12px;
+button{
 
 border:none;
 
 cursor:pointer;
 
-border-radius:12px;
+padding:16px;
+
+border-radius:14px;
 
 font-weight:700;
+
+}
+
+.reset{
+
+background:#e74c3c;
+
+color:white;
 
 }
 
@@ -153,11 +154,101 @@ color:white;
 opacity:.9;
 }
 
+.info{
+
+margin-bottom:18px;
+
+color:#666;
+
+}
+
+.grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(
+auto-fit,
+minmax(
+360px,
+1fr
+)
+);
+
+gap:20px;
+
+}
+
+.card{
+
+background:white;
+
+padding:20px;
+
+border-radius:18px;
+
+box-shadow:
+0 8px 22px rgba(0,0,0,.07);
+
+display:flex;
+
+flex-direction:column;
+
+gap:10px;
+
+}
+
+.badge{
+
+display:inline-block;
+
+background:#edf6ff;
+
+padding:8px;
+
+border-radius:10px;
+
+font-size:12px;
+
+}
+
+.kode{
+
+font-size:34px;
+
+font-weight:900;
+
+color:#F28C28;
+
+}
+
+.nama{
+
+font-size:20px;
+
+font-weight:700;
+
+}
+
+.section{
+
+line-height:1.5;
+
+}
+
+.note{
+
+color:#666;
+
+font-size:14px;
+
+}
+
 .empty{
 
-text-align:center;
-
 padding:80px;
+
+text-align:center;
 
 color:#777;
 
@@ -165,82 +256,203 @@ color:#777;
 
 .footer{
 
+margin-top:40px;
+
 padding:30px;
 
 text-align:center;
 
-color:#777;
+font-size:14px;
+
+color:#666;
 
 }
 
-mark{
-background:#ffe9a8;
+.warning{
+
+margin-top:15px;
+
+padding:14px;
+
+background:#fff8df;
+
+border-radius:12px;
+
+font-size:14px;
+
+color:#666;
+
+}
+
+@media(max-width:700px){
+
+.controls{
+
+grid-template-columns:
+1fr;
+
+}
+
+.header h1{
+
+font-size:28px;
+
+}
+
+.subtitle{
+
+font-size:18px;
+
+}
+
 }
 
 </style>
 
 </head>
 
+
+
 <body>
+
 
 <div class="header">
 
 <h1>
+
 🔎 KBLI SE2026
+
 </h1>
 
-<div>
-Bangka Tengah • Cari Aktivitas → Copy Kode → Tempel ke CAPI
-</div>
+
+<div class="subtitle">
+
+Aktivitas Ekonomi yang Sering Ditemukan di Bangka Tengah
 
 </div>
+
+
+<div class="desc">
+
+Panduan cepat identifikasi KBLI untuk kegiatan usaha yang umum dijumpai saat pendataan
+
+</div>
+
+
+<div class="flow">
+
+Pilih kategori → Cari aktivitas → Copy kode → Tempel ke CAPI
+
+</div>
+
+
+</div>
+
 
 
 <div class="container">
 
+
+<div class="controls">
+
 <input
-class="search"
 id="search"
 placeholder="
-Contoh:
-rusip,
-petani jagung,
-kemplang,
-bengkel,
-warung...
+Cari aktivitas, contoh usaha, nama KBLI, atau kode...
 "
 />
 
-<div class="info">
 
-Cari berdasarkan:
-aktivitas ekonomi,
-contoh usaha,
-nama KBLI,
-atau kode.
+<select id="kategori">
+
+<option value="">
+
+Semua Kategori
+
+</option>
+
+</select>
+
+
+<button
+class="reset"
+onclick="resetFilter()"
+>
+
+Reset
+
+</button>
+
 
 </div>
 
-<div id="jumlah"></div>
+
+
+<div
+class="info"
+id="jumlah"
+>
+
+Memuat data...
+
+</div>
+
+
+
+<div
+class="warning"
+>
+
+Daftar ini disusun untuk aktivitas ekonomi yang sering ditemukan di Bangka Tengah dan tidak menggantikan referensi KBLI nasional secara penuh.
+
+</div>
+
+
 
 <div
 class="grid"
 id="hasil"
 ></div>
 
+
 </div>
+
 
 
 <div class="footer">
 
-KBLI 2026 • Untuk operasional Sensus Ekonomi
+KBLI SE2026 • Aktivitas Ekonomi yang Sering Ditemukan di Bangka Tengah
 
 </div>
+
+
 
 
 <script>
 
 let DATA=[]
+
+const hasil=
+document.getElementById(
+"hasil"
+)
+
+const kategori=
+document.getElementById(
+"kategori"
+)
+
+const search=
+document.getElementById(
+"search"
+)
+
+const jumlah=
+document.getElementById(
+"jumlah"
+)
+
+
 
 fetch(
 "./kbli_clean.json"
@@ -255,193 +467,148 @@ json=>{
 
 DATA=json
 
-render(DATA)
+buatKategori()
+
+filterData()
+
+})
+
+
+
+function buatKategori(){
+
+let list=
+
+[
+...new Set(
+
+DATA.map(
+x=>x.kategori
+)
+
+)
+
+]
+
+.sort()
+
+
+list.forEach(
+
+k=>{
+
+let opt=
+
+document
+.createElement(
+"option"
+)
+
+opt.value=k
+
+opt.textContent=k
+
+kategori
+.appendChild(
+opt
+)
 
 }
 
 )
 
-const hasil=
-document.getElementById(
-"hasil"
-)
+}
 
-const jumlah=
-document.getElementById(
-"jumlah"
-)
+
 
 function score(
-item,
+x,
 q
 ){
 
 let s=0
 
 if(
-item.nama_kbli
+x.kode_kbli
+?.includes(q)
+)s+=30
+
+if(
+x.nama_kbli
+?.toLowerCase()
+.includes(q)
+)s+=20
+
+if(
+x.contoh_usaha
 ?.toLowerCase()
 .includes(q)
 )s+=10
 
 if(
-item.contoh_usaha
+x.aktivitas_ekonomi
 ?.toLowerCase()
 .includes(q)
 )s+=8
-
-if(
-item.aktivitas_ekonomi
-?.toLowerCase()
-.includes(q)
-)s+=6
-
-if(
-item.kode_kbli
-?.includes(q)
-)s+=20
 
 return s
 
 }
 
-function render(
-arr
-){
-
-jumlah.innerHTML=
-`
-<b>${arr.length}</b>
-hasil ditemukan
-`
-
-if(
-arr.length===0
-){
-
-hasil.innerHTML=
-`
-<div class='empty'>
-
-Tidak ditemukan
-
-</div>
-`
-
-return
-
-}
-
-hasil.innerHTML=
-arr
-.slice(0,100)
-
-.map(
-
-x=>`
-
-<div class='card'>
-
-<div class='badge'>
-${x.kategori}
-</div>
-
-<div class='kode'>
-
-${x.kode_kbli}
-
-</div>
-
-<div class='nama'>
-
-${x.nama_kbli}
-
-</div>
-
-<div>
-
-<b>Aktivitas:</b><br>
-
-${x.aktivitas_ekonomi||"-"}
-
-</div>
-
-<div>
-
-<b>Contoh:</b><br>
-
-${x.contoh_usaha||"-"}
-
-</div>
-
-<div>
-
-${x.catatan||""}
-
-</div>
-
-<button
-class='btn copy'
-
-onclick='copyCode("${x.kode_kbli}")'
->
-
-📋 Copy Kode
-
-</button>
-
-</div>
-
-`
-
-)
-
-.join("")
-
-}
 
 
-document
-
-.getElementById(
-"search"
-)
-
-.addEventListener(
-
-"input",
-
-e=>{
+function filterData(){
 
 let q=
-e.target.value
+
+search
+.value
 .toLowerCase()
 .trim()
 
-if(!q){
 
-render(DATA)
+let k=
 
-return
+kategori.value
 
-}
 
-let r=
+let rows=
+
 DATA
 
 .filter(
-x=>
+
+x=>{
+
+let cocokKategori=
+
+!k
+||
+x.kategori===k
+
+
+let cocokKeyword=
 
 JSON
 .stringify(x)
-
 .toLowerCase()
-
 .includes(q)
+
+
+return(
+
+cocokKategori
+&&
+cocokKeyword
+
+)
+
+}
 
 )
 
 .sort(
+
 (a,b)=>
 
 score(
@@ -458,28 +625,195 @@ q
 
 )
 
-render(r)
+
+render(
+rows
+)
 
 }
 
+
+
+function render(
+rows
+){
+
+jumlah.innerHTML=
+
+`
+<b>
+
+${rows.length}
+
+</b>
+
+hasil ditemukan
+
+`
+
+
+if(
+rows.length===0
+){
+
+hasil.innerHTML=
+
+`
+<div class='empty'>
+
+Tidak ada hasil ditemukan
+
+</div>
+
+`
+
+return
+
+}
+
+
+hasil.innerHTML=
+
+rows
+
+.slice(
+0,
+100
 )
 
+.map(
 
-function copyCode(
-k
+x=>
+
+`
+
+<div class='card'>
+
+
+<div class='badge'>
+
+${x.kategori}
+
+</div>
+
+
+<div class='kode'>
+
+${x.kode_kbli}
+
+</div>
+
+
+<div class='nama'>
+
+${x.nama_kbli}
+
+</div>
+
+
+<div class='section'>
+
+<b>Aktivitas Ekonomi</b>
+
+<br>
+
+${x.aktivitas_ekonomi||"-"}
+
+</div>
+
+
+<div class='section'>
+
+<b>Contoh Usaha</b>
+
+<br>
+
+${x.contoh_usaha||"-"}
+
+</div>
+
+
+<div class='note'>
+
+${x.catatan||""}
+
+</div>
+
+
+<button
+
+class='copy'
+
+onclick='copyKode("${x.kode_kbli}")'
+
+>
+
+📋 Copy Kode KBLI
+
+</button>
+
+
+</div>
+
+`
+
+)
+
+.join("")
+
+}
+
+
+
+function copyKode(
+kode
 ){
 
 navigator
 .clipboard
-.writeText(k)
+.writeText(
+kode
+)
 
 alert(
-`Kode ${k} berhasil dicopy`
+"Kode "
++
+kode
++
+" berhasil dicopy"
 )
 
 }
 
+
+
+function resetFilter(){
+
+search.value=""
+
+kategori.value=""
+
+filterData()
+
+}
+
+
+
+search
+.addEventListener(
+"input",
+filterData
+)
+
+kategori
+.addEventListener(
+"change",
+filterData
+)
+
 </script>
 
+
 </body>
+
 </html>
