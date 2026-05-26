@@ -254,6 +254,26 @@ select#kategori:focus{border-color:var(--se-orange)}
 }
 .contoh-label svg{width:12px;height:12px;stroke:currentColor}
 .contoh-text{font-size:13px;color:#5A4A2A;line-height:1.55}
+.catatan-wrap{
+  background:#FFF7ED;
+  border:1.5px solid #FBBF6A;
+  border-left:4px solid var(--se-orange);
+  border-radius:10px;padding:10px 12px;
+  margin-top:8px;
+  display:flex;gap:8px;align-items:flex-start;
+}
+.catatan-icon{
+  flex-shrink:0;margin-top:1px;
+}
+.catatan-icon svg{width:15px;height:15px;stroke:var(--se-orange-dark)}
+.catatan-body{}
+.catatan-label{
+  font-size:11px;font-weight:700;
+  color:var(--se-orange-dark);
+  text-transform:uppercase;letter-spacing:.6px;
+  margin-bottom:3px;
+}
+.catatan-text{font-size:13px;color:#7A3C0A;line-height:1.55;font-style:italic}
 .card-footer{
   display:flex;align-items:center;justify-content:flex-end;
   margin-top:12px;padding-top:10px;
@@ -513,6 +533,7 @@ mark{
         x.nama_kbli,
         x.aktivitas_ekonomi,
         x.contoh_usaha,
+        x.catatan,
         x.kategori
       ].join(' ').toLowerCase();
       return haystack.includes(q);
@@ -539,6 +560,7 @@ mark{
       const nm  = hl(x.nama_kbli,         q0);
       const ak  = hl(x.aktivitas_ekonomi, q0);
       const ct  = hl(x.contoh_usaha,      q0);
+      const cn  = hl(x.catatan,           q0);
       const cat = x.kategori || '';
 
       return `
@@ -561,6 +583,20 @@ mark{
            Contoh Usaha
          </div>
          <div class="contoh-text">${ct}</div>
+       </div>`
+    : ''}
+  ${x.catatan
+    ? `<div class="catatan-wrap">
+         <div class="catatan-icon">
+           <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" aria-hidden="true">
+             <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+             <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+           </svg>
+         </div>
+         <div class="catatan-body">
+           <div class="catatan-label">Catatan</div>
+           <div class="catatan-text">${cn}</div>
+         </div>
        </div>`
     : ''}
   <div class="card-footer">
