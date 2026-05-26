@@ -1,78 +1,484 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-  <title>News Dashboard</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Pencarian KBLI SE2026 — Bangka Tengah</title>
+
+<style>
+
+*{
+box-sizing:border-box;
+font-family:system-ui;
+}
+
+body{
+margin:0;
+background:#f4f7fb;
+}
+
+.header{
+background:linear-gradient(
+135deg,
+#FF8A00,
+#2D9CDB
+);
+
+color:white;
+
+padding:32px;
+
+text-align:center;
+}
+
+.container{
+max-width:1100px;
+margin:auto;
+
+padding:20px;
+}
+
+.search{
+
+width:100%;
+
+padding:18px;
+
+font-size:18px;
+
+border-radius:16px;
+
+border:none;
+
+box-shadow:
+0 5px 18px rgba(0,0,0,.1);
+}
+
+.info{
+
+margin-top:10px;
+
+color:#666;
+}
+
+.grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(
+auto-fit,
+minmax(350px,1fr)
+);
+
+gap:18px;
+
+margin-top:25px;
+
+}
+
+.card{
+
+background:white;
+
+padding:20px;
+
+border-radius:16px;
+
+box-shadow:
+0 8px 20px rgba(0,0,0,.08);
+
+display:flex;
+
+flex-direction:column;
+
+gap:12px;
+
+}
+
+.badge{
+
+background:#eef5ff;
+
+padding:8px;
+
+border-radius:10px;
+
+font-size:13px;
+
+}
+
+.kode{
+
+font-size:32px;
+
+font-weight:800;
+
+color:#ff8a00;
+
+}
+
+.nama{
+
+font-weight:700;
+
+font-size:20px;
+
+}
+
+.btn{
+
+padding:12px;
+
+border:none;
+
+cursor:pointer;
+
+border-radius:12px;
+
+font-weight:700;
+
+}
+
+.copy{
+
+background:#2D9CDB;
+
+color:white;
+
+}
+
+.copy:hover{
+opacity:.9;
+}
+
+.empty{
+
+text-align:center;
+
+padding:80px;
+
+color:#777;
+
+}
+
+.footer{
+
+padding:30px;
+
+text-align:center;
+
+color:#777;
+
+}
+
+mark{
+background:#ffe9a8;
+}
+
+</style>
+
 </head>
+
 <body>
 
-<h2>News Dashboard</h2>
+<div class="header">
 
-<!-- FILTER -->
-<input type="text" id="keyword" placeholder="Search keyword">
-<select id="lapus">
-  <option value="">All Lapus</option>
-  <option value="A">A</option>
-  <option value="B">B</option>
-</select>
+<h1>
+🔎 KBLI SE2026
+</h1>
 
-<button onclick="filterData()">Search</button>
+<div>
+Bangka Tengah • Cari Aktivitas → Copy Kode → Tempel ke CAPI
+</div>
 
-<p id="info"></p>
+</div>
 
-<table border="1" id="table">
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Title</th>
-      <th>Artikel</th>
-      <th>Lapus</th>
-    </tr>
-  </thead>
-  <tbody id="table-body"></tbody>
-</table>
+
+<div class="container">
+
+<input
+class="search"
+id="search"
+placeholder="
+Contoh:
+rusip,
+petani jagung,
+kemplang,
+bengkel,
+warung...
+"
+/>
+
+<div class="info">
+
+Cari berdasarkan:
+aktivitas ekonomi,
+contoh usaha,
+nama KBLI,
+atau kode.
+
+</div>
+
+<div id="jumlah"></div>
+
+<div
+class="grid"
+id="hasil"
+></div>
+
+</div>
+
+
+<div class="footer">
+
+KBLI 2026 • Untuk operasional Sensus Ekonomi
+
+</div>
+
 
 <script>
-let data = [];
 
-fetch("data.json")
-  .then(res => res.json())
-  .then(json => {
-    data = json;
-    renderTable(data);
-  });
+let DATA=[]
 
-function filterData() {
-  const keyword = document.getElementById("keyword").value.toLowerCase();
-  const lapus = document.getElementById("lapus").value;
+fetch(
+"./kbli_clean.json"
+)
 
-  let filtered = data.filter(d => {
-    return (
-      (!keyword || d.title.toLowerCase().includes(keyword)) &&
-      (!lapus || d.lapus === lapus)
-    );
-  });
+.then(
+r=>r.json()
+)
 
-  renderTable(filtered);
+.then(
+json=>{
+
+DATA=json
+
+render(DATA)
+
 }
 
-function renderTable(rows) {
-  const tbody = document.getElementById("table-body");
-  tbody.innerHTML = "";
+)
 
-  rows.forEach(d => {
-    tbody.innerHTML += `
-      <tr>
-        <td>${d.date}</td>
-        <td><a href="${d.link}" target="_blank">${d.title}</a></td>
-        <td>${d.artikel}</td>
-        <td>${d.lapus}</td>
-      </tr>
-    `;
-  });
+const hasil=
+document.getElementById(
+"hasil"
+)
 
-  document.getElementById("info").innerText =
-    "Found " + rows.length + " articles";
+const jumlah=
+document.getElementById(
+"jumlah"
+)
+
+function score(
+item,
+q
+){
+
+let s=0
+
+if(
+item.nama_kbli
+?.toLowerCase()
+.includes(q)
+)s+=10
+
+if(
+item.contoh_usaha
+?.toLowerCase()
+.includes(q)
+)s+=8
+
+if(
+item.aktivitas_ekonomi
+?.toLowerCase()
+.includes(q)
+)s+=6
+
+if(
+item.kode_kbli
+?.includes(q)
+)s+=20
+
+return s
+
 }
+
+function render(
+arr
+){
+
+jumlah.innerHTML=
+`
+<b>${arr.length}</b>
+hasil ditemukan
+`
+
+if(
+arr.length===0
+){
+
+hasil.innerHTML=
+`
+<div class='empty'>
+
+Tidak ditemukan
+
+</div>
+`
+
+return
+
+}
+
+hasil.innerHTML=
+arr
+.slice(0,100)
+
+.map(
+
+x=>`
+
+<div class='card'>
+
+<div class='badge'>
+${x.kategori}
+</div>
+
+<div class='kode'>
+
+${x.kode_kbli}
+
+</div>
+
+<div class='nama'>
+
+${x.nama_kbli}
+
+</div>
+
+<div>
+
+<b>Aktivitas:</b><br>
+
+${x.aktivitas_ekonomi||"-"}
+
+</div>
+
+<div>
+
+<b>Contoh:</b><br>
+
+${x.contoh_usaha||"-"}
+
+</div>
+
+<div>
+
+${x.catatan||""}
+
+</div>
+
+<button
+class='btn copy'
+
+onclick='copyCode("${x.kode_kbli}")'
+>
+
+📋 Copy Kode
+
+</button>
+
+</div>
+
+`
+
+)
+
+.join("")
+
+}
+
+
+document
+
+.getElementById(
+"search"
+)
+
+.addEventListener(
+
+"input",
+
+e=>{
+
+let q=
+e.target.value
+.toLowerCase()
+.trim()
+
+if(!q){
+
+render(DATA)
+
+return
+
+}
+
+let r=
+DATA
+
+.filter(
+x=>
+
+JSON
+.stringify(x)
+
+.toLowerCase()
+
+.includes(q)
+
+)
+
+.sort(
+(a,b)=>
+
+score(
+b,
+q
+)
+
+-
+
+score(
+a,
+q
+)
+
+)
+
+render(r)
+
+}
+
+)
+
+
+function copyCode(
+k
+){
+
+navigator
+.clipboard
+.writeText(k)
+
+alert(
+`Kode ${k} berhasil dicopy`
+)
+
+}
+
 </script>
 
 </body>
