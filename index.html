@@ -393,7 +393,7 @@ mark{
       <input
         id="searchInput"
         type="search"
-        placeholder="Cari nama usaha, contoh: melimbang, rusip, bengkel motor, tukang bangunan"
+        placeholder="Cari kata kunci usaha, contoh: melimbang, tukang bangunan, bengkel motor, rusip"
         autocomplete="off"
         spellcheck="false"
         inputmode="search"
@@ -572,8 +572,20 @@ mark{
       totalScore += fieldScore * weight;
     }
 
-    if (matchedTokenCount === 0) return 0;
-    return totalScore;
+    if (matchedTokenCount === 0) return { score: 0, allTokensMatched: false };
+
+    /* Cek apakah SEMUA query token cocok (di field mana saja, gabungan) */
+    const allMatched = qTokens.every(qt => {
+      for (const field of Object.keys(FIELD_WEIGHTS)){
+        const fieldNorm = normalize(item[field] || '');
+        const fieldTokens = tokenize(fieldNorm);
+        if (fieldTokens.includes(qt)) return true;
+        if (qt.length >= 4 && fieldNorm.includes(qt)) return true;
+      }
+      return false;
+    });
+
+    return { score: totalScore, allTokensMatched: allMatched };
   }
 
   function hl(text, qTokens){
@@ -601,8 +613,8 @@ mark{
     } else {
       rows = DATA
         .filter(x => !kat || x.kategori === kat)
-        .map(x => ({ item: x, score: scoreItem(x, qTokens) }))
-        .filter(r => r.score >= MIN_SCORE)
+        .map(x => { const s = scoreItem(x, qTokens); return { item: x, score: s.score, allTokensMatched: s.allTokensMatched }; })
+        .filter(r => r.score >= MIN_SCORE && (qTokens.length <= 1 || r.allTokensMatched))
         .sort((a, b) => b.score - a.score);
     }
 
