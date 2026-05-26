@@ -1,686 +1,665 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>
-KBLI SE2026 —
-Aktivitas Ekonomi yang Sering Ditemukan di Bangka Tengah
-</title>
-
+<title>KBLI SE2026 — Aktivitas Ekonomi yang Sering Ditemukan di Bangka Tengah</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-
-*{
-box-sizing:border-box;
-font-family:system-ui;
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --se-orange:#E87722;
+  --se-yellow:#F5B800;
+  --se-orange-dark:#C05E0A;
+  --se-yellow-light:#FEF3C7;
+  --bg:#FFFBF5;
+  --surface:#FFFFFF;
+  --border:#F0E8D8;
+  --text:#1A1208;
+  --muted:#7A6A50;
 }
-
 body{
-margin:0;
-background:#f7f9fc;
+  font-family:'Manrope',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
 }
 
+/* ── HEADER ── */
 .header{
-
-background:
-linear-gradient(
-135deg,
-#F28C28,
-#2D9CDB
-);
-
-color:white;
-
-padding:34px;
-
-text-align:center;
-
+  background:var(--surface);
+  border-bottom:2px solid var(--border);
+  padding:0 24px;
+  position:relative;
+  overflow:hidden;
+}
+.header::after{
+  content:'';
+  position:absolute;
+  top:-40px;right:-60px;
+  width:340px;height:220px;
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 6px,
+      rgba(232,119,34,.07) 6px,
+      rgba(232,119,34,.07) 12px
+    );
+  border-radius:50%;
+  pointer-events:none;
+}
+.header-inner{
+  max-width:1440px;
+  margin:0 auto;
+  padding:20px 0 18px;
+  display:flex;
+  align-items:center;
+  gap:18px;
+  position:relative;
+  z-index:1;
+}
+.logo-badge{
+  background:linear-gradient(135deg,var(--se-orange),var(--se-yellow));
+  border-radius:14px;
+  width:52px;height:52px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.logo-badge svg{width:28px;height:28px;fill:white}
+.header-text h1{
+  font-family:'Sora',sans-serif;
+  font-size:20px;font-weight:800;
+  color:var(--text);line-height:1.2;
+}
+.header-text h1 span{color:var(--se-orange)}
+.header-text p{
+  font-size:12px;color:var(--muted);
+  margin-top:3px;font-weight:500;
+}
+.se-tag{
+  margin-left:auto;
+  background:linear-gradient(135deg,var(--se-orange),var(--se-yellow));
+  color:white;
+  font-family:'Sora',sans-serif;
+  font-size:11px;font-weight:700;
+  padding:7px 16px;border-radius:20px;
+  white-space:nowrap;letter-spacing:.5px;
 }
 
-.header h1{
-margin:0;
-}
+/* ── MAIN ── */
+.main{max-width:1440px;margin:0 auto;padding:20px 24px}
 
-.subtitle{
-margin-top:10px;
-font-size:20px;
-font-weight:700;
-}
-
-.container{
-
-max-width:1500px;
-
-margin:auto;
-
-padding:20px;
-
-}
-
+/* ── CONTROLS ── */
 .controls{
+  display:grid;
+  grid-template-columns:1fr 260px auto;
+  gap:10px;
+  margin-bottom:14px;
+  position:sticky;top:0;
+  background:var(--bg);
+  padding:12px 0 10px;
+  z-index:20;
+}
+.search-wrap{
+  background:var(--surface);
+  border-radius:12px;
+  border:1.5px solid var(--border);
+  display:flex;align-items:center;
+  gap:10px;padding:0 14px;
+  transition:border-color .2s;
+}
+.search-wrap:focus-within{border-color:var(--se-orange)}
+.search-wrap svg{width:20px;height:20px;stroke:var(--se-orange);flex-shrink:0}
+.search-wrap input{
+  flex:1;border:none;outline:none;
+  font-family:'Manrope',sans-serif;
+  font-size:15px;font-weight:500;
+  background:transparent;color:var(--text);
+  padding:14px 0;
+}
+.search-wrap input::placeholder{color:#C4B49A;font-weight:400}
+.search-wrap .clear-btn{
+  background:none;border:none;
+  cursor:pointer;padding:4px;
+  color:var(--muted);
+  display:none;align-items:center;
+  border-radius:6px;
+}
+.search-wrap .clear-btn:hover{color:var(--se-orange)}
+.search-wrap.has-value .clear-btn{display:flex}
 
-display:grid;
+select#kategori{
+  background:var(--surface);
+  border:1.5px solid var(--border);
+  border-radius:12px;
+  padding:0 14px;
+  font-family:'Manrope',sans-serif;
+  font-size:14px;font-weight:600;
+  color:var(--text);
+  cursor:pointer;
+  outline:none;
+  transition:border-color .2s;
+  appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%237A6A50' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 12px center;
+  padding-right:36px;
+}
+select#kategori:focus{border-color:var(--se-orange)}
 
-grid-template-columns:
-2fr
-300px
-150px;
+.reset-btn{
+  background:transparent;
+  border:1.5px solid #E8C4A0;
+  border-radius:12px;
+  padding:0 18px;
+  font-family:'Manrope',sans-serif;
+  font-size:13px;font-weight:700;
+  color:var(--se-orange-dark);
+  cursor:pointer;
+  display:flex;align-items:center;gap:6px;
+  white-space:nowrap;
+  transition:all .15s;
+}
+.reset-btn:hover{background:#FFF3E0;border-color:var(--se-orange)}
+.reset-btn svg{width:16px;height:16px;stroke:currentColor}
 
-gap:12px;
-
-position:sticky;
-
-top:0;
-
-background:#f7f9fc;
-
-padding-bottom:12px;
-
-z-index:10;
-
+/* ── INFO BAR ── */
+.info-bar{
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:16px;flex-wrap:wrap;
+}
+.result-count{
+  font-size:13px;font-weight:600;color:var(--muted);
+}
+.result-count b{color:var(--se-orange);font-size:16px}
+.warning-note{
+  margin-left:auto;
+  background:var(--se-yellow-light);
+  border:1px solid #F5E8C8;
+  border-radius:8px;
+  padding:6px 12px;
+  font-size:12px;font-weight:500;
+  color:#7A5C0A;
 }
 
-input,
-select,
-button{
+/* ── CARDS ── */
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+  gap:14px;
+}
+.card{
+  background:var(--surface);
+  border-radius:16px;
+  border:1.5px solid var(--border);
+  padding:18px;
+  transition:all .15s;
+  position:relative;
+  overflow:hidden;
+}
+.card:hover{
+  border-color:var(--se-orange);
+  transform:translateY(-2px);
+  box-shadow:0 8px 24px rgba(232,119,34,.10);
+}
+.card-stripe{
+  position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--se-orange),var(--se-yellow));
+  border-radius:16px 16px 0 0;
+  opacity:0;transition:opacity .15s;
+}
+.card:hover .card-stripe{opacity:1}
+.card-head{
+  display:flex;align-items:flex-start;gap:12px;
+  margin-bottom:10px;
+}
+.kode-badge{
+  background:linear-gradient(135deg,var(--se-orange),var(--se-yellow));
+  color:white;
+  font-family:'Sora',sans-serif;
+  font-size:14px;font-weight:800;
+  padding:8px 11px;border-radius:10px;
+  letter-spacing:.5px;flex-shrink:0;
+  min-width:62px;text-align:center;
+}
+.cat-chip{
+  font-size:11px;font-weight:700;
+  padding:3px 9px;border-radius:20px;
+  background:var(--se-yellow-light);
+  color:var(--se-orange-dark);
+  display:inline-block;margin-bottom:6px;
+  letter-spacing:.3px;
+}
+.card-title{
+  font-family:'Sora',sans-serif;
+  font-size:13px;font-weight:700;
+  line-height:1.35;color:var(--text);
+}
+.aktivitas{
+  font-size:13px;color:var(--muted);
+  line-height:1.6;margin-bottom:8px;
+}
+.contoh-wrap{
+  background:#FFFBF0;
+  border:1.5px solid #F5E8C8;
+  border-radius:10px;padding:10px 12px;
+  margin-top:6px;
+}
+.contoh-label{
+  font-size:11px;font-weight:700;
+  color:var(--se-orange);
+  text-transform:uppercase;letter-spacing:.6px;
+  margin-bottom:4px;display:flex;align-items:center;gap:4px;
+}
+.contoh-label svg{width:12px;height:12px;stroke:currentColor}
+.contoh-text{font-size:13px;color:#5A4A2A;line-height:1.55}
+.card-footer{
+  display:flex;align-items:center;justify-content:flex-end;
+  margin-top:12px;padding-top:10px;
+  border-top:1px solid var(--border);
+}
+.copy-btn{
+  background:var(--se-orange);color:white;
+  border:none;border-radius:8px;
+  padding:8px 16px;
+  font-family:'Manrope',sans-serif;
+  font-size:12px;font-weight:700;
+  cursor:pointer;
+  display:flex;align-items:center;gap:6px;
+  transition:all .15s;
+}
+.copy-btn:hover{background:var(--se-orange-dark)}
+.copy-btn.copied{background:#1E9E6A}
+.copy-btn svg{width:14px;height:14px;stroke:currentColor}
 
-padding:16px;
-
-border:none;
-
-border-radius:12px;
-
-font-size:16px;
-
+/* ── HIGHLIGHT ── */
+mark{
+  background:#FFF3C4;
+  color:#C05E0A;
+  padding:1px 2px;
+  border-radius:3px;
+  font-weight:700;
 }
 
-input{
-
-width:100%;
-
-box-shadow:
-0 4px 15px rgba(0,0,0,.08);
-
+/* ── EMPTY ── */
+.empty-state{
+  grid-column:1/-1;
+  text-align:center;
+  padding:80px 20px;
+  color:var(--muted);
 }
-
-select{
-
-box-shadow:
-0 4px 15px rgba(0,0,0,.08);
-
+.empty-state svg{
+  width:48px;height:48px;
+  stroke:var(--border);
+  margin-bottom:16px;
 }
+.empty-state p{font-size:16px;font-weight:600}
+.empty-state small{font-size:13px;color:#B4A490;margin-top:6px;display:block}
 
-.reset{
-
-background:#e74c3c;
-
-color:white;
-
+/* ── TOAST ── */
+.toast{
+  position:fixed;bottom:24px;right:24px;
+  background:#1A1208;color:white;
+  border-radius:12px;padding:12px 18px;
+  font-family:'Manrope',sans-serif;
+  font-size:14px;font-weight:600;
+  display:flex;align-items:center;gap:8px;
+  opacity:0;transform:translateY(12px);
+  transition:all .2s;pointer-events:none;
+  z-index:100;
 }
+.toast.show{opacity:1;transform:translateY(0)}
+.toast svg{width:18px;height:18px;stroke:#1E9E6A;flex-shrink:0}
 
-.info{
-
-margin:
-
-18px
-0;
-
-color:#666;
-
+/* ── SCROLL TOP ── */
+.scroll-top{
+  position:fixed;bottom:24px;left:24px;
+  background:linear-gradient(135deg,var(--se-orange),var(--se-yellow));
+  color:white;border:none;
+  width:44px;height:44px;border-radius:12px;
+  font-size:20px;cursor:pointer;
+  display:none;align-items:center;justify-content:center;
+  box-shadow:0 4px 16px rgba(232,119,34,.3);
+  transition:all .15s;
 }
+.scroll-top:hover{transform:translateY(-2px)}
+.scroll-top svg{width:20px;height:20px;stroke:white}
 
-.table-wrap{
-
-overflow:auto;
-
-background:white;
-
-border-radius:18px;
-
-box-shadow:
-0 8px 20px rgba(0,0,0,.06);
-
-}
-
-table{
-
-width:100%;
-
-border-collapse:collapse;
-
-}
-
-thead{
-
-position:sticky;
-
-top:80px;
-
-z-index:5;
-
-}
-
-th{
-
-background:#2D9CDB;
-
-color:white;
-
-padding:16px;
-
-text-align:left;
-
-}
-
-td{
-
-padding:14px;
-
-vertical-align:top;
-
-border-bottom:
-1px solid #eee;
-
-}
-
-tr:hover{
-
-background:#fafcff;
-
-}
-
-.kode{
-
-font-weight:800;
-
-color:#F28C28;
-
-}
-
-.copy{
-
-background:#2D9CDB;
-
-color:white;
-
-padding:10px;
-
-}
-
-.empty{
-
-padding:80px;
-
-text-align:center;
-
-color:#777;
-
-}
-
-.warning{
-
-margin-bottom:15px;
-
-background:#fff7df;
-
-padding:14px;
-
-border-radius:12px;
-
-}
-
+/* ── FOOTER ── */
 .footer{
-
-padding:30px;
-
-text-align:center;
-
-color:#777;
-
+  text-align:center;padding:32px;
+  color:var(--muted);font-size:12px;font-weight:500;
 }
 
-.top{
-
-position:fixed;
-
-bottom:20px;
-
-right:20px;
-
-width:50px;
-
-height:50px;
-
-border-radius:999px;
-
-background:#F28C28;
-
-color:white;
-
-display:none;
-
+/* ── RESPONSIVE ── */
+@media(max-width:860px){
+  .controls{grid-template-columns:1fr 1fr;grid-template-rows:auto auto}
+  .search-wrap{grid-column:1/-1}
+  .warning-note{display:none}
+  .header-text h1{font-size:17px}
+  .se-tag{font-size:10px;padding:6px 12px}
 }
-
-@media(max-width:900px){
-
-.controls{
-
-grid-template-columns:1fr;
-
+@media(max-width:560px){
+  .controls{grid-template-columns:1fr}
+  .reset-btn{width:100%;justify-content:center}
+  .cards{grid-template-columns:1fr}
+  .main{padding:16px}
+  .header-inner{flex-wrap:wrap}
+  .se-tag{margin-left:0}
 }
-
-thead{
-
-top:170px;
-
-}
-
-}
-
 </style>
-
 </head>
-
 <body>
 
+<!-- HEADER -->
 <div class="header">
-
-<h1>
-🔎 KBLI SE2026
-</h1>
-
-<div class="subtitle">
-
-Aktivitas Ekonomi yang Sering Ditemukan di Bangka Tengah
-
+  <div class="header-inner">
+    <div class="logo-badge">
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M6 4h20a2 2 0 012 2v20a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2zm2 4v4h4V8H8zm0 6v4h4v-4H8zm0 6v4h4v-4H8zm6-12v4h10V8H14zm0 6v4h10v-4H14zm0 6v4h10v-4H14z"/>
+      </svg>
+    </div>
+    <div class="header-text">
+      <h1>Panduan KBLI <span>SE2026</span></h1>
+      <p>Aktivitas Ekonomi yang Sering Ditemukan di Bangka Tengah</p>
+    </div>
+    <div class="se-tag">SENSUS EKONOMI 2026</div>
+  </div>
 </div>
 
+<div class="main">
+
+  <!-- CONTROLS -->
+  <div class="controls">
+    <div class="search-wrap" id="searchWrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+      </svg>
+      <input
+        id="searchInput"
+        type="search"
+        placeholder="Cari kode, nama, atau contoh usaha… (rusip, bengkel, CPO, kemplang…)"
+        autocomplete="off"
+        spellcheck="false"
+      >
+      <button class="clear-btn" id="clearBtn" onclick="clearSearch()" title="Hapus pencarian" aria-label="Hapus pencarian">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" width="16" height="16" aria-hidden="true">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <select id="kategori" aria-label="Filter kategori">
+      <option value="">Semua Kategori</option>
+    </select>
+
+    <button class="reset-btn" onclick="resetFilter()" title="Reset semua filter">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true">
+        <path d="M1 4v6h6M23 20v-6h-6"/>
+        <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/>
+      </svg>
+      Reset
+    </button>
+  </div>
+
+  <!-- INFO BAR -->
+  <div class="info-bar">
+    <div class="result-count"><b id="jumlahAngka">…</b> hasil ditemukan</div>
+    <div class="warning-note">
+      Panduan KBLI untuk petugas lapangan SE2026 — bukan daftar nasional lengkap
+    </div>
+  </div>
+
+  <!-- CARDS -->
+  <div class="cards" id="cardsContainer">
+    <div class="empty-state">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" aria-hidden="true">
+        <circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/>
+      </svg>
+      <p>Memuat data…</p>
+    </div>
+  </div>
 </div>
 
+<!-- FOOTER -->
+<div class="footer">KBLI SE2026 &bull; Bangka Tengah &bull; BPS</div>
 
+<!-- TOAST -->
+<div class="toast" id="toast" role="alert" aria-live="polite">
+  <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" aria-hidden="true">
+    <path d="M20 6L9 17l-5-5"/>
+  </svg>
+  <span id="toastMsg"></span>
+</div>
 
-<div class="container">
-
-<div class="controls">
-
-<input
-id="search"
-placeholder="Contoh pencarian: rusip, bengkel motor, petani jagung, warung sembako, pabrik CPO, kemplang, penggilingan ikan..."
->
-
-<select id="kategori">
-
-<option value="">
-Semua Kategori
-</option>
-
-</select>
-
-<button
-class="reset"
-onclick="resetFilter()"
->
-
-Reset
-
+<!-- SCROLL TOP -->
+<button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Kembali ke atas" aria-label="Kembali ke atas">
+  <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" aria-hidden="true">
+    <path d="M18 15l-6-6-6 6"/>
+  </svg>
 </button>
-
-</div>
-
-
-<div
-class="info"
-id="jumlah"
->
-
-Memuat...
-
-</div>
-
-
-<div class="warning">
-
-Daftar ini merupakan panduan KBLI untuk aktivitas ekonomi yang sering ditemukan di Bangka Tengah dan bukan daftar KBLI nasional lengkap.
-
-</div>
-
-
-
-<div class="table-wrap">
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>No</th>
-
-<th>Kode</th>
-
-<th>Nama KBLI</th>
-
-<th>Aktivitas</th>
-
-<th>Contoh</th>
-
-<th>Kategori</th>
-
-<th>Aksi</th>
-
-</tr>
-
-</thead>
-
-<tbody
-id="hasil"
->
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-
-<button
-class="top"
-id="top"
-onclick="window.scrollTo({top:0,behavior:'smooth'})"
->
-
-↑
-
-</button>
-
-
-<div class="footer">
-
-KBLI SE2026 • Bangka Tengah
-
-</div>
-
 
 <script>
-
-let DATA=[]
-
-const hasil=
-document.getElementById("hasil")
-
-const search=
-document.getElementById("search")
-
-const kategori=
-document.getElementById("kategori")
-
-const jumlah=
-document.getElementById("jumlah")
-
-fetch("./kbli_clean.json")
-
-.then(r=>r.json())
-
-.then(d=>{
-
-DATA=d
-
-isiKategori()
-
-filter()
-
-})
-
-
-
-function isiKategori(){
-
-[
-...new Set(
-DATA.map(
-x=>x.kategori
-)
-)
-
-]
-
-.sort()
-
-.forEach(
-
-k=>{
-
-kategori.innerHTML+=
-`<option>${k}</option>`
-
-}
-
-)
-
-}
-
-
-
-function filter(){
-
-let q=
-search.value
-.toLowerCase()
-
-let k=
-kategori.value
-
-
-let rows=
-
-DATA
-
-.filter(
-
-x=>
-
-(!k||
-
-x.kategori===k)
-
-&&
-
-JSON
-.stringify(x)
-.toLowerCase()
-.includes(q)
-
-)
-
-
-render(
-rows
-)
-
-}
-
-
-
-function render(
-rows
-){
-
-jumlah.innerHTML=
-`<b>${rows.length}</b> hasil ditemukan`
-
-if(
-rows.length===0
-){
-
-hasil.innerHTML=
-`
-<tr>
-
-<td
-colspan=7
-class='empty'
->
-
-Tidak ditemukan
-
-</td>
-
-</tr>
-`
-
-return
-
-}
-
-hasil.innerHTML=
-
-rows
-
-.slice(0,300)
-
-.map(
-
-(x,i)=>
-
-`
-
-<tr>
-
-<td>
-${i+1}
-</td>
-
-<td
-class='kode'
->
-
-${x.kode_kbli}
-
-</td>
-
-<td>
-
-${x.nama_kbli}
-
-</td>
-
-<td>
-
-${x.aktivitas_ekonomi||"-"}
-
-</td>
-
-<td>
-
-${x.contoh_usaha||"-"}
-
-</td>
-
-<td>
-
-${x.kategori}
-
-</td>
-
-<td>
-
-<button
-class='copy'
-onclick='copy("${x.kode_kbli}")'
->
-
-📋 Copy
-
-</button>
-
-</td>
-
-</tr>
-
-`
-
-)
-
-.join("")
-
-}
-
-
-
-function copy(
-k
-){
-
-navigator
-.clipboard
-.writeText(
-k
-)
-
-}
-
-
-
-function resetFilter(){
-
-search.value=""
-
-kategori.value=""
-
-filter()
-
-}
-
-
-
-search
-.addEventListener(
-"input",
-filter
-)
-
-kategori
-.addEventListener(
-"change",
-filter
-)
-
-
-
-window
-.addEventListener(
-"scroll",
-
-()=>{
-
-document
-.getElementById(
-"top"
-)
-
-.style.display=
-
-window.scrollY>500
-
-?
-
-"block"
-
-:
-
-"none"
-
-}
-
-)
-
+(function(){
+  let DATA = [];
+  let currentQ = '';
+  let currentKat = '';
+  let toastTimer;
+
+  const searchInput   = document.getElementById('searchInput');
+  const searchWrap    = document.getElementById('searchWrap');
+  const clearBtn      = document.getElementById('clearBtn');
+  const kategoriSel   = document.getElementById('kategori');
+  const cardsContainer= document.getElementById('cardsContainer');
+  const jumlahAngka   = document.getElementById('jumlahAngka');
+  const toast         = document.getElementById('toast');
+  const toastMsg      = document.getElementById('toastMsg');
+  const scrollTopBtn  = document.getElementById('scrollTopBtn');
+
+  /* ── LOAD DATA ── */
+  fetch('./kbli_clean.json')
+    .then(r => {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
+    .then(d => {
+      DATA = d;
+      buildKategori();
+      render();
+    })
+    .catch(err => {
+      cardsContainer.innerHTML = `
+        <div class="empty-state">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/>
+          </svg>
+          <p>Gagal memuat data</p>
+          <small>Pastikan file <code>kbli_clean.json</code> berada satu folder dengan file ini.<br>${err.message}</small>
+        </div>`;
+      jumlahAngka.textContent = '0';
+    });
+
+  /* ── BUILD KATEGORI DROPDOWN ── */
+  function buildKategori(){
+    const cats = [...new Set(DATA.map(x => x.kategori).filter(Boolean))].sort();
+    cats.forEach(k => {
+      const opt = document.createElement('option');
+      opt.value = k;
+      opt.textContent = k;
+      kategoriSel.appendChild(opt);
+    });
+  }
+
+  /* ── HIGHLIGHT ── */
+  function hl(text, q){
+    if (!q || !text) return text ? String(text) : '-';
+    const esc = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return String(text).replace(new RegExp('(' + esc + ')', 'gi'), '<mark>$1</mark>');
+  }
+
+  /* ── RENDER ── */
+  function render(){
+    const q   = currentQ.toLowerCase().trim();
+    const kat = currentKat;
+
+    const rows = DATA.filter(x => {
+      const matchKat = !kat || x.kategori === kat;
+      if (!matchKat) return false;
+      if (!q) return true;
+      // search across relevant fields
+      const haystack = [
+        x.kode_kbli,
+        x.nama_kbli,
+        x.aktivitas_ekonomi,
+        x.contoh_usaha,
+        x.kategori
+      ].join(' ').toLowerCase();
+      return haystack.includes(q);
+    });
+
+    jumlahAngka.textContent = rows.length.toLocaleString('id-ID');
+
+    if (rows.length === 0){
+      cardsContainer.innerHTML = `
+        <div class="empty-state">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+          </svg>
+          <p>Tidak ditemukan hasil</p>
+          <small>Coba kata kunci lain atau reset filter</small>
+        </div>`;
+      return;
+    }
+
+    const limited = rows.slice(0, 300);
+    cardsContainer.innerHTML = limited.map((x, i) => {
+      const q0  = currentQ.trim();
+      const kd  = hl(x.kode_kbli,         q0);
+      const nm  = hl(x.nama_kbli,         q0);
+      const ak  = hl(x.aktivitas_ekonomi, q0);
+      const ct  = hl(x.contoh_usaha,      q0);
+      const cat = x.kategori || '';
+
+      return `
+<div class="card">
+  <div class="card-stripe"></div>
+  <div class="card-head">
+    <div class="kode-badge">${kd}</div>
+    <div style="flex:1;min-width:0">
+      <div class="cat-chip">${cat}</div>
+      <div class="card-title">${nm}</div>
+    </div>
+  </div>
+  ${x.aktivitas_ekonomi
+    ? `<div class="aktivitas">${ak}</div>`
+    : ''}
+  ${x.contoh_usaha
+    ? `<div class="contoh-wrap">
+         <div class="contoh-label">
+           <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+           Contoh Usaha
+         </div>
+         <div class="contoh-text">${ct}</div>
+       </div>`
+    : ''}
+  <div class="card-footer">
+    <button
+      class="copy-btn"
+      id="cbtn${i}"
+      onclick="copyKode('${x.kode_kbli}',${i})"
+      aria-label="Salin kode ${x.kode_kbli}"
+    >
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" aria-hidden="true">
+        <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+      </svg>
+      Salin ${x.kode_kbli}
+    </button>
+  </div>
+</div>`;
+    }).join('');
+
+    // show note if capped
+    if (rows.length > 300){
+      cardsContainer.innerHTML += `
+        <div class="empty-state" style="grid-column:1/-1;padding:24px">
+          <small style="font-size:13px;color:var(--muted)">
+            Menampilkan 300 dari ${rows.length.toLocaleString('id-ID')} hasil.
+            Persempit pencarian untuk melihat lebih spesifik.
+          </small>
+        </div>`;
+    }
+  }
+
+  /* ── COPY ── */
+  window.copyKode = function(kode, i){
+    navigator.clipboard.writeText(kode)
+      .then(() => {
+        const btn = document.getElementById('cbtn' + i);
+        if (btn){
+          btn.classList.add('copied');
+          btn.innerHTML = `
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+            Tersalin!`;
+          setTimeout(() => {
+            btn.classList.remove('copied');
+            btn.innerHTML = `
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" aria-hidden="true">
+                <rect x="9" y="9" width="13" height="13" rx="2"/>
+                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+              </svg>
+              Salin ${kode}`;
+          }, 2000);
+        }
+        showToast('Kode ' + kode + ' tersalin ke clipboard');
+      })
+      .catch(() => showToast('Gagal menyalin — coba lagi'));
+  };
+
+  /* ── TOAST ── */
+  function showToast(msg){
+    toastMsg.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2600);
+  }
+
+  /* ── CLEAR SEARCH ── */
+  window.clearSearch = function(){
+    searchInput.value = '';
+    currentQ = '';
+    searchWrap.classList.remove('has-value');
+    render();
+    searchInput.focus();
+  };
+
+  /* ── RESET ── */
+  window.resetFilter = function(){
+    searchInput.value = '';
+    kategoriSel.value = '';
+    currentQ   = '';
+    currentKat = '';
+    searchWrap.classList.remove('has-value');
+    render();
+  };
+
+  /* ── EVENTS ── */
+  searchInput.addEventListener('input', () => {
+    currentQ = searchInput.value;
+    searchWrap.classList.toggle('has-value', currentQ.length > 0);
+    render();
+  });
+
+  kategoriSel.addEventListener('change', () => {
+    currentKat = kategoriSel.value;
+    render();
+  });
+
+  window.addEventListener('scroll', () => {
+    scrollTopBtn.style.display = window.scrollY > 400 ? 'flex' : 'none';
+  });
+
+})();
 </script>
-
 </body>
-
 </html>
