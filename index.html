@@ -15,15 +15,12 @@ Aktivitas Ekonomi yang Sering Ditemukan di Bangka Tengah
 
 *{
 box-sizing:border-box;
-font-family:
-system-ui,
-sans-serif;
+font-family:system-ui;
 }
 
 body{
 margin:0;
-background:#f5f7fb;
-color:#222;
+background:#f7f9fc;
 }
 
 .header{
@@ -37,55 +34,29 @@ linear-gradient(
 
 color:white;
 
-padding:
-40px
-20px;
+padding:34px;
 
 text-align:center;
 
 }
 
 .header h1{
-
 margin:0;
-
-font-size:38px;
-
 }
 
 .subtitle{
-
-font-size:22px;
-
+margin-top:10px;
+font-size:20px;
 font-weight:700;
-
-margin-top:10px;
-
-}
-
-.desc{
-
-margin-top:10px;
-
-opacity:.95;
-
-}
-
-.flow{
-
-margin-top:12px;
-
-font-size:14px;
-
 }
 
 .container{
 
-max-width:1200px;
+max-width:1500px;
 
 margin:auto;
 
-padding:25px;
+padding:20px;
 
 }
 
@@ -95,42 +66,50 @@ display:grid;
 
 grid-template-columns:
 2fr
-1fr
-auto;
+300px
+150px;
 
 gap:12px;
 
-margin-bottom:20px;
+position:sticky;
+
+top:0;
+
+background:#f7f9fc;
+
+padding-bottom:12px;
+
+z-index:10;
 
 }
 
 input,
-select{
+select,
+button{
 
 padding:16px;
 
 border:none;
 
-border-radius:14px;
+border-radius:12px;
 
 font-size:16px;
 
+}
+
+input{
+
+width:100%;
+
 box-shadow:
-0 4px 14px rgba(0,0,0,.08);
+0 4px 15px rgba(0,0,0,.08);
 
 }
 
-button{
+select{
 
-border:none;
-
-cursor:pointer;
-
-padding:16px;
-
-border-radius:14px;
-
-font-weight:700;
+box-shadow:
+0 4px 15px rgba(0,0,0,.08);
 
 }
 
@@ -142,105 +121,92 @@ color:white;
 
 }
 
+.info{
+
+margin:
+
+18px
+0;
+
+color:#666;
+
+}
+
+.table-wrap{
+
+overflow:auto;
+
+background:white;
+
+border-radius:18px;
+
+box-shadow:
+0 8px 20px rgba(0,0,0,.06);
+
+}
+
+table{
+
+width:100%;
+
+border-collapse:collapse;
+
+}
+
+thead{
+
+position:sticky;
+
+top:80px;
+
+z-index:5;
+
+}
+
+th{
+
+background:#2D9CDB;
+
+color:white;
+
+padding:16px;
+
+text-align:left;
+
+}
+
+td{
+
+padding:14px;
+
+vertical-align:top;
+
+border-bottom:
+1px solid #eee;
+
+}
+
+tr:hover{
+
+background:#fafcff;
+
+}
+
+.kode{
+
+font-weight:800;
+
+color:#F28C28;
+
+}
+
 .copy{
 
 background:#2D9CDB;
 
 color:white;
 
-}
-
-.copy:hover{
-opacity:.9;
-}
-
-.info{
-
-margin-bottom:18px;
-
-color:#666;
-
-}
-
-.grid{
-
-display:grid;
-
-grid-template-columns:
-repeat(
-auto-fit,
-minmax(
-360px,
-1fr
-)
-);
-
-gap:20px;
-
-}
-
-.card{
-
-background:white;
-
-padding:20px;
-
-border-radius:18px;
-
-box-shadow:
-0 8px 22px rgba(0,0,0,.07);
-
-display:flex;
-
-flex-direction:column;
-
-gap:10px;
-
-}
-
-.badge{
-
-display:inline-block;
-
-background:#edf6ff;
-
-padding:8px;
-
-border-radius:10px;
-
-font-size:12px;
-
-}
-
-.kode{
-
-font-size:34px;
-
-font-weight:900;
-
-color:#F28C28;
-
-}
-
-.nama{
-
-font-size:20px;
-
-font-weight:700;
-
-}
-
-.section{
-
-line-height:1.5;
-
-}
-
-.note{
-
-color:#666;
-
-font-size:14px;
+padding:10px;
 
 }
 
@@ -254,54 +220,61 @@ color:#777;
 
 }
 
-.footer{
+.warning{
 
-margin-top:40px;
+margin-bottom:15px;
+
+background:#fff7df;
+
+padding:14px;
+
+border-radius:12px;
+
+}
+
+.footer{
 
 padding:30px;
 
 text-align:center;
 
-font-size:14px;
-
-color:#666;
+color:#777;
 
 }
 
-.warning{
+.top{
 
-margin-top:15px;
+position:fixed;
 
-padding:14px;
+bottom:20px;
 
-background:#fff8df;
+right:20px;
 
-border-radius:12px;
+width:50px;
 
-font-size:14px;
+height:50px;
 
-color:#666;
+border-radius:999px;
+
+background:#F28C28;
+
+color:white;
+
+display:none;
 
 }
 
-@media(max-width:700px){
+@media(max-width:900px){
 
 .controls{
 
-grid-template-columns:
-1fr;
+grid-template-columns:1fr;
 
 }
 
-.header h1{
+thead{
 
-font-size:28px;
-
-}
-
-.subtitle{
-
-font-size:18px;
+top:170px;
 
 }
 
@@ -311,19 +284,13 @@ font-size:18px;
 
 </head>
 
-
-
 <body>
-
 
 <div class="header">
 
 <h1>
-
 🔎 KBLI SE2026
-
 </h1>
-
 
 <div class="subtitle">
 
@@ -331,48 +298,26 @@ Aktivitas Ekonomi yang Sering Ditemukan di Bangka Tengah
 
 </div>
 
-
-<div class="desc">
-
-Panduan cepat identifikasi KBLI untuk kegiatan usaha yang umum dijumpai saat pendataan
-
-</div>
-
-
-<div class="flow">
-
-Pilih kategori → Cari aktivitas → Copy kode → Tempel ke CAPI
-
-</div>
-
-
 </div>
 
 
 
 <div class="container">
 
-
 <div class="controls">
 
 <input
 id="search"
-placeholder="
-Cari aktivitas, contoh usaha, nama KBLI, atau kode...
-"
-/>
-
+placeholder="Contoh pencarian: rusip, bengkel motor, petani jagung, warung sembako, pabrik CPO, kemplang, penggilingan ikan..."
+>
 
 <select id="kategori">
 
 <option value="">
-
 Semua Kategori
-
 </option>
 
 </select>
-
 
 <button
 class="reset"
@@ -383,9 +328,7 @@ Reset
 
 </button>
 
-
 </div>
-
 
 
 <div
@@ -393,39 +336,74 @@ class="info"
 id="jumlah"
 >
 
-Memuat data...
+Memuat...
+
+</div>
+
+
+<div class="warning">
+
+Daftar ini merupakan panduan KBLI untuk aktivitas ekonomi yang sering ditemukan di Bangka Tengah dan bukan daftar KBLI nasional lengkap.
 
 </div>
 
 
 
-<div
-class="warning"
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>No</th>
+
+<th>Kode</th>
+
+<th>Nama KBLI</th>
+
+<th>Aktivitas</th>
+
+<th>Contoh</th>
+
+<th>Kategori</th>
+
+<th>Aksi</th>
+
+</tr>
+
+</thead>
+
+<tbody
+id="hasil"
 >
 
-Daftar ini disusun untuk aktivitas ekonomi yang sering ditemukan di Bangka Tengah dan tidak menggantikan referensi KBLI nasional secara penuh.
+</tbody>
+
+</table>
+
+</div>
 
 </div>
 
 
+<button
+class="top"
+id="top"
+onclick="window.scrollTo({top:0,behavior:'smooth'})"
+>
 
-<div
-class="grid"
-id="hasil"
-></div>
+↑
 
-
-</div>
-
+</button>
 
 
 <div class="footer">
 
-KBLI SE2026 • Aktivitas Ekonomi yang Sering Ditemukan di Bangka Tengah
+KBLI SE2026 • Bangka Tengah
 
 </div>
-
-
 
 
 <script>
@@ -433,85 +411,52 @@ KBLI SE2026 • Aktivitas Ekonomi yang Sering Ditemukan di Bangka Tengah
 let DATA=[]
 
 const hasil=
-document.getElementById(
-"hasil"
-)
-
-const kategori=
-document.getElementById(
-"kategori"
-)
+document.getElementById("hasil")
 
 const search=
-document.getElementById(
-"search"
-)
+document.getElementById("search")
+
+const kategori=
+document.getElementById("kategori")
 
 const jumlah=
-document.getElementById(
-"jumlah"
-)
+document.getElementById("jumlah")
 
+fetch("./kbli_clean.json")
 
+.then(r=>r.json())
 
-fetch(
-"./kbli_clean.json"
-)
+.then(d=>{
 
-.then(
-r=>r.json()
-)
+DATA=d
 
-.then(
-json=>{
+isiKategori()
 
-DATA=json
-
-buatKategori()
-
-filterData()
+filter()
 
 })
 
 
 
-function buatKategori(){
-
-let list=
+function isiKategori(){
 
 [
 ...new Set(
-
 DATA.map(
 x=>x.kategori
 )
-
 )
 
 ]
 
 .sort()
 
-
-list.forEach(
+.forEach(
 
 k=>{
 
-let opt=
-
-document
-.createElement(
-"option"
-)
-
-opt.value=k
-
-opt.textContent=k
-
-kategori
-.appendChild(
-opt
-)
+kategori.innerHTML+=
+`<option>${k}</option>`
 
 }
 
@@ -521,54 +466,13 @@ opt
 
 
 
-function score(
-x,
-q
-){
-
-let s=0
-
-if(
-x.kode_kbli
-?.includes(q)
-)s+=30
-
-if(
-x.nama_kbli
-?.toLowerCase()
-.includes(q)
-)s+=20
-
-if(
-x.contoh_usaha
-?.toLowerCase()
-.includes(q)
-)s+=10
-
-if(
-x.aktivitas_ekonomi
-?.toLowerCase()
-.includes(q)
-)s+=8
-
-return s
-
-}
-
-
-
-function filterData(){
+function filter(){
 
 let q=
-
-search
-.value
+search.value
 .toLowerCase()
-.trim()
-
 
 let k=
-
 kategori.value
 
 
@@ -578,50 +482,18 @@ DATA
 
 .filter(
 
-x=>{
+x=>
 
-let cocokKategori=
+(!k||
 
-!k
-||
-x.kategori===k
+x.kategori===k)
 
-
-let cocokKeyword=
+&&
 
 JSON
 .stringify(x)
 .toLowerCase()
 .includes(q)
-
-
-return(
-
-cocokKategori
-&&
-cocokKeyword
-
-)
-
-}
-
-)
-
-.sort(
-
-(a,b)=>
-
-score(
-b,
-q
-)
-
--
-
-score(
-a,
-q
-)
 
 )
 
@@ -639,121 +511,96 @@ rows
 ){
 
 jumlah.innerHTML=
-
-`
-<b>
-
-${rows.length}
-
-</b>
-
-hasil ditemukan
-
-`
-
+`<b>${rows.length}</b> hasil ditemukan`
 
 if(
 rows.length===0
 ){
 
 hasil.innerHTML=
-
 `
-<div class='empty'>
+<tr>
 
-Tidak ada hasil ditemukan
+<td
+colspan=7
+class='empty'
+>
 
-</div>
+Tidak ditemukan
 
+</td>
+
+</tr>
 `
 
 return
 
 }
 
-
 hasil.innerHTML=
 
 rows
 
-.slice(
-0,
-100
-)
+.slice(0,300)
 
 .map(
 
-x=>
+(x,i)=>
 
 `
 
-<div class='card'>
+<tr>
 
+<td>
+${i+1}
+</td>
 
-<div class='badge'>
-
-${x.kategori}
-
-</div>
-
-
-<div class='kode'>
+<td
+class='kode'
+>
 
 ${x.kode_kbli}
 
-</div>
+</td>
 
-
-<div class='nama'>
+<td>
 
 ${x.nama_kbli}
 
-</div>
+</td>
 
-
-<div class='section'>
-
-<b>Aktivitas Ekonomi</b>
-
-<br>
+<td>
 
 ${x.aktivitas_ekonomi||"-"}
 
-</div>
+</td>
 
-
-<div class='section'>
-
-<b>Contoh Usaha</b>
-
-<br>
+<td>
 
 ${x.contoh_usaha||"-"}
 
-</div>
+</td>
 
+<td>
 
-<div class='note'>
+${x.kategori}
 
-${x.catatan||""}
+</td>
 
-</div>
-
+<td>
 
 <button
-
 class='copy'
-
-onclick='copyKode("${x.kode_kbli}")'
-
+onclick='copy("${x.kode_kbli}")'
 >
 
-📋 Copy Kode KBLI
+📋 Copy
 
 </button>
 
+</td>
 
-</div>
+</tr>
 
 `
 
@@ -765,22 +612,14 @@ onclick='copyKode("${x.kode_kbli}")'
 
 
 
-function copyKode(
-kode
+function copy(
+k
 ){
 
 navigator
 .clipboard
 .writeText(
-kode
-)
-
-alert(
-"Kode "
-+
-kode
-+
-" berhasil dicopy"
+k
 )
 
 }
@@ -793,7 +632,7 @@ search.value=""
 
 kategori.value=""
 
-filterData()
+filter()
 
 }
 
@@ -802,17 +641,45 @@ filterData()
 search
 .addEventListener(
 "input",
-filterData
+filter
 )
 
 kategori
 .addEventListener(
 "change",
-filterData
+filter
+)
+
+
+
+window
+.addEventListener(
+"scroll",
+
+()=>{
+
+document
+.getElementById(
+"top"
+)
+
+.style.display=
+
+window.scrollY>500
+
+?
+
+"block"
+
+:
+
+"none"
+
+}
+
 )
 
 </script>
-
 
 </body>
 
