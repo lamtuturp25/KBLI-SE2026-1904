@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>KBLI SE2026 - Bangka Tengah</title>
+<title>KBLI SE2026 — Bangka Tengah</title>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -377,7 +377,7 @@ mark{
     </div>
     <div class="header-text">
       <h1>Panduan KBLI <span>SE2026</span></h1>
-      <p>Aktivitas Ekonomi Kabupaten Bangka Tengah</p>
+      <p>Aktivitas Ekonomi — Bangka Tengah</p>
     </div>
     <div class="se-tag">SE2026</div>
   </div>
@@ -393,7 +393,7 @@ mark{
       <input
         id="searchInput"
         type="search"
-        placeholder="Cari nama usaha, contoh rusip, bengkel motor, CPO, kemplang…"
+        placeholder="Cari kode, nama, contoh usaha…"
         autocomplete="off"
         spellcheck="false"
         inputmode="search"
@@ -498,22 +498,107 @@ mark{
     });
   }
 
-  function hl(text, q){
-    if (!q || !text) return text ? String(text) : '-';
-    const esc = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    return String(text).replace(new RegExp('(' + esc + ')', 'gi'), '<mark>$1</mark>');
+  /* ── NORMALIZE: strip symbols → spasi, lowercase, trim ── */
+  function normalize(str){
+    if (!str) return '';
+    return String(str)
+      .toLowerCase()
+      .replace(/[\/\-–—_.,;:!?()"']+/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
   }
 
-  function render(){
-    const q   = currentQ.toLowerCase().trim();
-    const kat = currentKat;
+  /* ── TOKENIZE: split normalized string into kata-kata ── */
+  function tokenize(str){
+    return normalize(str).split(' ').filter(t => t.length > 0);
+  }
 
-    const rows = DATA.filter(x => {
-      if (kat && x.kategori !== kat) return false;
-      if (!q) return true;
-      return [x.kode_kbli,x.nama_kbli,x.aktivitas_ekonomi,x.contoh_usaha,x.catatan,x.kategori]
-        .join(' ').toLowerCase().includes(q);
-    });
+  /* ── STOPWORDS Indonesia (diabaikan saat scoring) ── */
+  const STOPWORDS = new Set([
+    'dan','atau','di','ke','dari','yang','untuk','dengan','pada','oleh',
+    'sebagai','dalam','adalah','ini','itu','juga','tidak','bukan','serta',
+    'seperti','termasuk','kecuali','meliputi','antara','lain','yaitu',
+    'misal','misalnya','contoh','usaha','jasa','kegiatan','usaha'
+  ]);
+
+  /* ── SCORING ENGINE ── */
+  /* Bobot field: nama_kbli & kode paling tinggi, lalu contoh, lalu aktivitas, catatan */
+  const FIELD_WEIGHTS = {
+    kode_kbli: 10,
+    nama_kbli: 6,
+    contoh_usaha: 4,
+    aktivitas_ekonomi: 3,
+    catatan: 2,
+    kategori: 1
+  };
+
+  function scoreItem(item, qTokens){
+    if (qTokens.length === 0) return 1;
+
+    let totalScore = 0;
+
+    for (const [field, weight] of Object.entries(FIELD_WEIGHTS)){
+      const fieldTokens = tokenize(item[field] || '');
+      if (fieldTokens.length === 0) continue;
+
+      let fieldScore = 0;
+      for (const qt of qTokens){
+        /* Exact token match */
+        if (fieldTokens.includes(qt)){
+          fieldScore += 2;
+          continue;
+        }
+        /* Partial/prefix match: token data mengandung kata query atau sebaliknya */
+        const partialMatch = fieldTokens.some(ft =>
+          ft.includes(qt) || qt.includes(ft)
+        );
+        if (partialMatch) fieldScore += 1;
+      }
+
+      /* Bonus: semua query token cocok di field yang sama (urutan bebas) */
+      const allMatch = qTokens.every(qt =>
+        fieldTokens.some(ft => ft.includes(qt) || qt.includes(ft))
+      );
+      if (allMatch && qTokens.length > 1) fieldScore += qTokens.length * 1.5;
+
+      totalScore += fieldScore * weight;
+    }
+
+    return totalScore;
+  }
+
+  /* ── HIGHLIGHT: highlight tiap query token secara terpisah ── */
+  function hl(text, qTokens){
+    if (!qTokens || qTokens.length === 0 || !text) return text ? String(text) : '-';
+    let result = String(text);
+    /* Urutkan dari terpanjang agar token panjang di-mark duluan */
+    const sorted = [...qTokens].sort((a,b) => b.length - a.length);
+    for (const qt of sorted){
+      if (qt.length < 2) continue;
+      const esc = qt.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      result = result.replace(new RegExp('(' + esc + ')', 'gi'), '<mark>$1</mark>');
+    }
+    return result;
+  }
+
+  /* ── MIN SCORE THRESHOLD: minimal 1 token harus cocok ── */
+  const MIN_SCORE = 1;
+
+  function render(){
+    const q   = normalize(currentQ);
+    const kat = currentKat;
+    const qTokens = tokenize(q).filter(t => t.length >= 2);
+
+    let rows;
+    if (!q){
+      rows = (kat ? DATA.filter(x => x.kategori === kat) : DATA).map(x => ({item:x, score:1}));
+    } else {
+      rows = DATA
+        .filter(x => !kat || x.kategori === kat)
+        .map(x => ({ item: x, score: scoreItem(x, qTokens) }))
+        .filter(r => r.score >= MIN_SCORE)
+        .sort((a, b) => b.score - a.score);
+    }
 
     jumlahAngka.textContent = rows.length.toLocaleString('id-ID');
 
@@ -530,14 +615,15 @@ mark{
     }
 
     const limited = rows.slice(0, 300);
-    const q0 = currentQ.trim();
+    const hlTokens = qTokens;
 
-    cardsContainer.innerHTML = limited.map((x, i) => {
-      const kd  = hl(x.kode_kbli,         q0);
-      const nm  = hl(x.nama_kbli,         q0);
-      const ak  = hl(x.aktivitas_ekonomi, q0);
-      const ct  = hl(x.contoh_usaha,      q0);
-      const cn  = hl(x.catatan,           q0);
+    cardsContainer.innerHTML = limited.map((r, i) => {
+      const x   = r.item;
+      const kd  = hl(x.kode_kbli,         hlTokens);
+      const nm  = hl(x.nama_kbli,         hlTokens);
+      const ak  = hl(x.aktivitas_ekonomi, hlTokens);
+      const ct  = hl(x.contoh_usaha,      hlTokens);
+      const cn  = hl(x.catatan,           hlTokens);
       const cat = x.kategori || '';
 
       return `
