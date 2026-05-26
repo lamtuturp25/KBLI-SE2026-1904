@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>KBLI SE2026 - Bangka Tengah</title>
+<title>KBLI SE2026 — Bangka Tengah</title>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -393,7 +393,7 @@ mark{
       <input
         id="searchInput"
         type="search"
-        placeholder="Cari nama usaha, contoh rusip, bengkel motor, tukang bangunan, melimbang"
+        placeholder="Cari nama usaha, contoh: melimbang, rusip, bengkel motor, tukang bangunan"
         autocomplete="off"
         spellcheck="false"
         inputmode="search"
@@ -536,58 +536,64 @@ mark{
     if (qTokens.length === 0) return 1;
 
     let totalScore = 0;
+    let matchedTokenCount = 0;
 
     for (const [field, weight] of Object.entries(FIELD_WEIGHTS)){
-      const fieldTokens = tokenize(item[field] || '');
+      const fieldNorm = normalize(item[field] || '');
+      const fieldTokens = tokenize(fieldNorm);
       if (fieldTokens.length === 0) continue;
 
       let fieldScore = 0;
       for (const qt of qTokens){
-        /* Exact token match */
         if (fieldTokens.includes(qt)){
-          fieldScore += 2;
+          fieldScore += 3;
+          matchedTokenCount++;
           continue;
         }
-        /* Partial/prefix match: token data mengandung kata query atau sebaliknya */
-        const partialMatch = fieldTokens.some(ft =>
-          ft.includes(qt) || qt.includes(ft)
-        );
-        if (partialMatch) fieldScore += 1;
+        if (qt.length >= 4 && fieldTokens.some(ft => ft.includes(qt))){
+          fieldScore += 1.5;
+          matchedTokenCount++;
+          continue;
+        }
+        if (qt.length >= 4 && fieldNorm.includes(qt)){
+          fieldScore += 1;
+          matchedTokenCount++;
+        }
       }
 
-      /* Bonus: semua query token cocok di field yang sama (urutan bebas) */
-      const allMatch = qTokens.every(qt =>
-        fieldTokens.some(ft => ft.includes(qt) || qt.includes(ft))
-      );
-      if (allMatch && qTokens.length > 1) fieldScore += qTokens.length * 1.5;
+      if (qTokens.length > 1){
+        const allInField = qTokens.every(qt =>
+          fieldTokens.includes(qt) ||
+          (qt.length >= 4 && fieldNorm.includes(qt))
+        );
+        if (allInField) fieldScore += qTokens.length * 2;
+      }
 
       totalScore += fieldScore * weight;
     }
 
+    if (matchedTokenCount === 0) return 0;
     return totalScore;
   }
 
-  /* ── HIGHLIGHT: highlight tiap query token secara terpisah ── */
   function hl(text, qTokens){
     if (!qTokens || qTokens.length === 0 || !text) return text ? String(text) : '-';
     let result = String(text);
-    /* Urutkan dari terpanjang agar token panjang di-mark duluan */
     const sorted = [...qTokens].sort((a,b) => b.length - a.length);
     for (const qt of sorted){
-      if (qt.length < 2) continue;
+      if (qt.length < 3) continue;
       const esc = qt.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       result = result.replace(new RegExp('(' + esc + ')', 'gi'), '<mark>$1</mark>');
     }
     return result;
   }
 
-  /* ── MIN SCORE THRESHOLD: minimal 1 token harus cocok ── */
   const MIN_SCORE = 1;
 
   function render(){
     const q   = normalize(currentQ);
     const kat = currentKat;
-    const qTokens = tokenize(q).filter(t => t.length >= 2);
+    const qTokens = tokenize(q).filter(t => t.length >= 3);
 
     let rows;
     if (!q){
